@@ -32,7 +32,7 @@ public class WindowUtil {
 
     /**
      * 兼容Android O
-     *
+     * 部分手机即便开启了也还返回false，需要用这方法尽量避免
      * @param context Context
      * @return true if permission granted
      */
@@ -42,7 +42,8 @@ public class WindowUtil {
         if (appOpsMgr == null) return false;
         int mode = appOpsMgr.checkOpNoThrow("android:system_alert_window", android.os.Process.myUid(), context.getPackageName());
         Log.e("TTT", "android:system_alert_window: mode=" + mode);
-        return false;
+
+        return mode==AppOpsManager.MODE_ALLOWED;
 
 //        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 //        if (windowManager == null) return false;
